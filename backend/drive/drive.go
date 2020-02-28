@@ -2056,6 +2056,7 @@ func (f *Fs) Copy(ctx context.Context, src fs.Object, remote string) (fs.Object,
 	if err != nil {
 		return nil, err
 	}
+	createInfo.Description = "" // don't overwrite the description on copy
 
 	var info *drive.File
 	err = f.pacer.Call(func() (bool, error) {
