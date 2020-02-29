@@ -248,7 +248,7 @@ func Run(Retry bool, showStats bool, cmd *cobra.Command, f func() error) {
 			if try > 1 {
 				fs.Errorf(nil, "Attempt %d/%d succeeded", try, *retries)
 			}
-			break
+			//break // pamu777: re-running until retry limit reaches
 		}
 		if accounting.GlobalStats().HadFatalError() {
 			fs.Errorf(nil, "Fatal error received - not attempting retries")

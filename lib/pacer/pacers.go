@@ -230,12 +230,13 @@ func (c *GoogleDrive) Calculate(state State) time.Duration {
 	if consecutiveRetries == 0 {
 		return c.limiter.Reserve().Delay()
 	}
-	if consecutiveRetries > 5 {
-		consecutiveRetries = 5
-	}
-	// consecutiveRetries starts at 1 so go from 1,2,3,4,5,5 => 1,2,4,8,16,16
-	// maxSleep is 2**(consecutiveRetries-1) seconds + random milliseconds
-	return time.Second<<uint(consecutiveRetries-1) + time.Duration(rand.Int63n(int64(time.Second)))
+	return c.minSleep
+	//  if consecutiveRetries > 5 {
+	//  	consecutiveRetries = 5
+	//  }
+	//  // consecutiveRetries starts at 1 so go from 1,2,3,4,5,5 => 1,2,4,8,16,16
+	//  // maxSleep is 2**(consecutiveRetries-1) seconds + random milliseconds
+	//  return time.Second<<uint(consecutiveRetries-1) + time.Duration(rand.Int63n(int64(time.Second)))
 }
 
 // S3 implements a pacer compatible with our expectations of S3, where it tries to not
