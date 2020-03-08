@@ -1417,6 +1417,7 @@ func pacerInvoker(try, retries int, f pacer.Paced) (retry bool, err error) {
 	retry, err = f()
 	if retry {
 		Debugf("pacer", "low level retry %d/%d (error %v)", try, retries, err)
+		time.Sleep(600 * time.Second)
 		err = fserrors.RetryError(err)
 	}
 	return

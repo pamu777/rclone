@@ -219,18 +219,19 @@ func (o Burst) ApplyGoogleDrive(c *GoogleDrive) {
 
 // Calculate takes the current Pacer state and return the wait time until the next try.
 func (c *GoogleDrive) Calculate(state State) time.Duration {
-	if t, ok := IsRetryAfter(state.LastError); ok {
-		if t < c.minSleep {
-			return c.minSleep
-		}
-		return t
-	}
-
-	consecutiveRetries := state.ConsecutiveRetries
-	if consecutiveRetries == 0 {
-		return c.limiter.Reserve().Delay()
-	}
 	return c.minSleep
+
+	//if t, ok := IsRetryAfter(state.LastError); ok {
+	//	if t < c.minSleep {
+	//		return c.minSleep
+	//	}
+	//	return t
+	//}
+
+	//consecutiveRetries := state.ConsecutiveRetries
+	//if consecutiveRetries == 0 {
+	//	return c.limiter.Reserve().Delay()
+	//}
 	//  if consecutiveRetries > 5 {
 	//  	consecutiveRetries = 5
 	//  }
